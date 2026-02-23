@@ -1,0 +1,49 @@
+{
+  "name": "kimi-code-reviewer",
+  "version": "0.1.0",
+  "description": "AI-powered code review GitHub App & Action using Moonshot Kimi with 256K context window",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "build:action": "ncc build action/index.ts -o action/dist",
+    "start": "node dist/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "tsc --noEmit",
+    "clean": "rm -rf dist action/dist"
+  },
+  "keywords": [
+    "kimi",
+    "moonshot",
+    "code-review",
+    "github-action",
+    "github-app",
+    "ai",
+    "256k-context"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@octokit/app": "^15.1.0",
+    "@octokit/rest": "^21.0.0",
+    "@octokit/webhooks": "^13.4.0",
+    "hono": "^4.6.0",
+    "minimatch": "^10.0.0",
+    "pino": "^9.5.0",
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "@actions/core": "^1.11.0",
+    "@actions/github": "^6.0.0",
+    "@types/node": "^22.10.0",
+    "@vercel/ncc": "^0.38.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
