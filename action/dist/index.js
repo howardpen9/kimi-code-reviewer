@@ -52812,7 +52812,7 @@ class KimiClient {
         this.baseUrl = config.baseUrl ?? 'https://api.moonshot.cn/v1';
         this.maxTokens = config.maxTokens ?? 16384;
         this.temperature = config.temperature ?? 1;
-        this.timeout = config.timeout ?? 120_000;
+        this.timeout = config.timeout ?? 300_000;
     }
     async chatCompletion(params) {
         const body = {
