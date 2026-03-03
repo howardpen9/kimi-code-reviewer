@@ -52737,10 +52737,10 @@ class KimiClient {
     timeout;
     constructor(config) {
         this.apiKey = config.apiKey;
-        this.model = config.model ?? 'kimi-k2-0905';
+        this.model = config.model ?? 'kimi-k2.5';
         this.baseUrl = config.baseUrl ?? 'https://api.moonshot.cn/v1';
         this.maxTokens = config.maxTokens ?? 16384;
-        this.temperature = config.temperature ?? 0.1;
+        this.temperature = config.temperature ?? 1;
         this.timeout = config.timeout ?? 120_000;
     }
     async chatCompletion(params) {
@@ -52788,7 +52788,7 @@ var dist = __nccwpck_require__(8815);
 
 const reviewConfigSchema = objectType({
     language: enumType(['en', 'zh-TW', 'zh-CN', 'ja', 'ko']).default('en'),
-    model: enumType(['kimi-k2-0905', 'kimi-k2-5']).default('kimi-k2-0905'),
+    model: stringType().default('kimi-k2.5'),
     review: objectType({
         auto: objectType({
             enabled: booleanType().default(true),
@@ -52852,7 +52852,7 @@ const reviewConfigSchema = objectType({
 ;// CONCATENATED MODULE: ./src/config/defaults.ts
 const DEFAULT_CONFIG = {
     language: 'en',
-    model: 'kimi-k2-0905',
+    model: 'kimi-k2.5',
     review: {
         auto: {
             enabled: true,
@@ -52951,7 +52951,7 @@ async function run() {
         // Get inputs
         const kimiApiKey = core.getInput('kimi_api_key', { required: true });
         const githubToken = core.getInput('github_token');
-        const model = core.getInput('model') || 'kimi-k2-0905';
+        const model = core.getInput('model') || 'kimi-k2.5';
         const failOn = (core.getInput('fail_on') || 'critical');
         const octokit = github.getOctokit(githubToken);
         const context = github.context;
@@ -52965,14 +52965,17 @@ async function run() {
         const pullNumber = context.payload.pull_request.number;
         const headSha = context.payload.pull_request.head.sha;
         core.info(`Reviewing PR #${pullNumber} (${headSha.slice(0, 7)})`);
+        // @actions/github getOctokit puts REST methods under .rest,
+        // but our code expects @octokit/rest shape (octokit.checks, octokit.pulls, etc.)
+        const restOctokit = octokit.rest;
         // Load config from repo
-        const config = await loadConfig(octokit, owner, repo);
+        const config = await loadConfig(restOctokit, owner, repo);
         // Override failOn from action input
         config.review.failOn = failOn;
         // Create Kimi client
         const kimi = new KimiClient({ apiKey: kimiApiKey, model });
         // Run review
-        const orchestrator = new ReviewOrchestrator(octokit, kimi, config);
+        const orchestrator = new ReviewOrchestrator(restOctokit, kimi, config);
         const result = await orchestrator.reviewPullRequest({
             owner,
             repo,

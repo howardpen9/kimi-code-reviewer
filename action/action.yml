@@ -15,9 +15,9 @@ inputs:
     required: false
     default: ${{ github.token }}
   model:
-    description: 'Kimi model to use (kimi-k2-0905 for 256K context)'
+    description: 'Kimi model to use (kimi-k2.5 for 256K context)'
     required: false
-    default: 'kimi-k2-0905'
+    default: 'kimi-k2.5'
   language:
     description: 'Review comment language (en, zh-TW, zh-CN, ja, ko)'
     required: false

@@ -1,0 +1,14 @@
+language: zh-TW
+model: kimi-k2-0905
+
+review:
+  aspects:
+    - security
+    - performance
+    - readability
+  failOn: never
+
+files:
+  exclude:
+    - "action/dist/**"
+    - "*.lock"

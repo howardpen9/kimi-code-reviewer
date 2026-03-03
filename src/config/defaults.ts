@@ -2,7 +2,7 @@ import type { ReviewConfig } from './schema.js';
 
 export const DEFAULT_CONFIG: ReviewConfig = {
   language: 'en',
-  model: 'kimi-k2-0905',
+  model: 'kimi-k2.5',
   review: {
     auto: {
       enabled: true,

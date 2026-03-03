@@ -1,7 +1,7 @@
 import { z } from 'zod';
 export declare const reviewConfigSchema: z.ZodObject<{
     language: z.ZodDefault<z.ZodEnum<["en", "zh-TW", "zh-CN", "ja", "ko"]>>;
-    model: z.ZodDefault<z.ZodEnum<["kimi-k2-0905", "kimi-k2-5"]>>;
+    model: z.ZodDefault<z.ZodString>;
     review: z.ZodDefault<z.ZodObject<{
         auto: z.ZodDefault<z.ZodObject<{
             enabled: z.ZodDefault<z.ZodBoolean>;
@@ -141,7 +141,7 @@ export declare const reviewConfigSchema: z.ZodObject<{
         ttl?: number | undefined;
     }>>;
 }, "strip", z.ZodTypeAny, {
-    model: "kimi-k2-0905" | "kimi-k2-5";
+    model: string;
     language: "en" | "zh-TW" | "zh-CN" | "ja" | "ko";
     review: {
         auto: {
@@ -184,7 +184,7 @@ export declare const reviewConfigSchema: z.ZodObject<{
         ttl: number;
     };
 }, {
-    model?: "kimi-k2-0905" | "kimi-k2-5" | undefined;
+    model?: string | undefined;
     language?: "en" | "zh-TW" | "zh-CN" | "ja" | "ko" | undefined;
     review?: {
         auto?: {

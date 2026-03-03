@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export const reviewConfigSchema = z.object({
   language: z.enum(['en', 'zh-TW', 'zh-CN', 'ja', 'ko']).default('en'),
-  model: z.enum(['kimi-k2-0905', 'kimi-k2-5']).default('kimi-k2-0905'),
+  model: z.string().default('kimi-k2.5'),
 
   review: z
     .object({

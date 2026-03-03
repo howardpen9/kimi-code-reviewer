@@ -10,7 +10,7 @@ async function run(): Promise<void> {
     // Get inputs
     const kimiApiKey = core.getInput('kimi_api_key', { required: true });
     const githubToken = core.getInput('github_token');
-    const model = core.getInput('model') || 'kimi-k2-0905';
+    const model = core.getInput('model') || 'kimi-k2.5';
     const failOn = (core.getInput('fail_on') || 'critical') as 'critical' | 'warning' | 'never';
 
     const octokit = github.getOctokit(githubToken);
@@ -29,8 +29,12 @@ async function run(): Promise<void> {
 
     core.info(`Reviewing PR #${pullNumber} (${headSha.slice(0, 7)})`);
 
+    // @actions/github getOctokit puts REST methods under .rest,
+    // but our code expects @octokit/rest shape (octokit.checks, octokit.pulls, etc.)
+    const restOctokit = octokit.rest;
+
     // Load config from repo
-    const config = await loadConfig(octokit as any, owner, repo);
+    const config = await loadConfig(restOctokit as any, owner, repo);
     // Override failOn from action input
     config.review.failOn = failOn;
 
@@ -38,7 +42,7 @@ async function run(): Promise<void> {
     const kimi = new KimiClient({ apiKey: kimiApiKey, model });
 
     // Run review
-    const orchestrator = new ReviewOrchestrator(octokit as any, kimi, config);
+    const orchestrator = new ReviewOrchestrator(restOctokit as any, kimi, config);
     const result = await orchestrator.reviewPullRequest({
       owner,
       repo,
