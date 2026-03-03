@@ -1,11 +1,12 @@
 language: zh-TW
-model: kimi-k2-0905
+model: kimi-k2.5
 
 review:
   aspects:
-    - security
-    - performance
-    - readability
+    security: true
+    performance: true
+    style: true
+    bestPractices: true
   failOn: never
 
 files:
