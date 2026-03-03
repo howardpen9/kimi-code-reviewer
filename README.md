@@ -16,6 +16,9 @@
 
 ---
 
+> **Note:** This is a community-maintained GitHub Action for PR code review.
+> For the official Kimi Code CLI with full features (chat, flows, MCP, etc.), see [MoonshotAI/kimi-cli](https://github.com/MoonshotAI/kimi-cli).
+
 ## Features
 
 - **256K Context Window** — Reviews entire PRs with full file context, not just diffs
@@ -27,9 +30,11 @@
 
 ## Quick Start — GitHub Action
 
-### 1. Get a Moonshot API Key
+### 1. Get an API Key
 
-Sign up at [platform.moonshot.ai](https://platform.moonshot.ai) and create an API key.
+Get your API key from **[Kimi Code Console](https://www.kimi.com/code/console)** (recommended for code review use cases).
+
+> **Kimi Code API vs Moonshot API**: The Kimi Code API (`api.kimi.com/coding/v1`) is optimized for coding tasks and is separate from the general Moonshot API (`api.moonshot.cn/v1`). Both work with this action, but the Kimi Code API provides better code-specific performance.
 
 ### 2. Add the Secret
 
@@ -354,7 +359,7 @@ Kimi Code Reviewer 是基於 [Moonshot Kimi](https://platform.moonshot.ai) 大�
 
 #### 1. 取得 API Key
 
-前往 [platform.moonshot.ai](https://platform.moonshot.ai) 註冊並建立 API key。
+前往 **[Kimi Code Console](https://www.kimi.com/code/console)** 取得 API key（推薦，專為程式碼任務優化）。也可使用 [platform.moonshot.ai](https://platform.moonshot.ai) 的通用 API key。
 
 #### 2. 設定 GitHub Secret
 
