@@ -1,0 +1,48 @@
+name: 'Kimi Code Reviewer'
+description: 'AI-powered code review using Moonshot Kimi with 256K context window'
+author: 'howardpen9'
+
+branding:
+  icon: 'eye'
+  color: 'blue'
+
+inputs:
+  kimi_api_key:
+    description: 'Moonshot AI API key (from platform.moonshot.ai)'
+    required: true
+  github_token:
+    description: 'GitHub token for API access'
+    required: false
+    default: ${{ github.token }}
+  model:
+    description: 'Kimi model to use (kimi-k2.5 for 256K context)'
+    required: false
+    default: 'kimi-k2.5'
+  language:
+    description: 'Review comment language (en, zh-TW, zh-CN, ja, ko)'
+    required: false
+    default: 'en'
+  fail_on:
+    description: 'Fail the check on: critical, warning, never'
+    required: false
+    default: 'critical'
+  config_path:
+    description: 'Path to config file (relative to repo root)'
+    required: false
+    default: '.kimi-review.yml'
+
+outputs:
+  review_summary:
+    description: 'The review summary text'
+  annotations_count:
+    description: 'Number of annotations created'
+  critical_count:
+    description: 'Number of critical issues found'
+  tokens_used:
+    description: 'Total tokens used'
+  cost_estimate:
+    description: 'Estimated API cost in USD'
+
+runs:
+  using: 'node20'
+  main: 'action/dist/index.js'

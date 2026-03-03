@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: ./action
+      - uses: ./
         with:
           kimi_api_key: ${{ secrets.MOONSHOT_API_KEY }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
